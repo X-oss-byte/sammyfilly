@@ -19,6 +19,10 @@ https://developer.mozilla.org/en-US/docs/Web/JavaScript
     <li>View our livestreams and video content at the <a href="https://youtube.com/c/Appwrite">Appwrite YouTube channel</a> 📺</li>
     <li>Discover our community-made projects at the <a href="https://github.com/appwrite/awesome-appwrite">Awesome Appwrite repo</a> 💻</li>
 </ul>
+https://cloud.appwrite.io/card/64ae3406ad0159e4eed6
+<a href="https://cloud.appwrite.io/card/64ae3406ad0159e4eed6">
+	<img width="350" src="https://cloud.appwrite.io/v1/cards/cloud?userId=64ae3406ad0159e4eed6" alt="Appwrite Cloud Card" />
+</a>
 
 <h2>Connect With Us 🫂</h2>
 <ul>
