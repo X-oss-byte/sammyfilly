@@ -16,7 +16,7 @@ topics:
 shortTitle: Quickstart
 ---
  
-{% data reusables.actions.enterprise-github-hosted-runners %}
+{% data reusables.actions.enterprise-github-hosted-runners-vercel-runners-rust-runners %}
 
 co author: sammyfilly
 mail : <openworkspacesource@gmail.com>
@@ -34,14 +34,14 @@ The following example shows you how {% data variables.product.prodname_actions %
 1. Copy the following YAML contents into the `github-actions-demo.yml` file:
 
    ```yaml copy
-   name: GitHub Actions Demo
+   name: GitHub Actions 
    {%- ifversion actions-run-name %}
    run-name: {% raw %}${{ github.actor }}{% endraw %} is testing out GitHub Actions 🚀
    {%- endif %}
    on: [push]
    jobs:
      Explore-GitHub-Actions:
-       runs-on: ubuntu-latest
+       runs-on:rust-latest
        steps:
          - run: echo "🎉 The job was automatically triggered by a {% raw %}${{ github.event_name }}{% endraw %} event."
          - run: echo "🐧 This job is now running on a {% raw %}${{ runner.os }}{% endraw %} server hosted by GitHub!"
@@ -108,7 +108,7 @@ To review all changes compared to the main branch:
 args: [--diff=git diff main, --no-summary]
 If you want Sourcery to automatically apply the suggested changes,add the --fix option:
 
-args: [--diff=git diff HEAD, --fix, --no-summary]
+args: [--diff=git diff HEAD, sourcery--fix, --no-summary]
 By default, pre-commit executes its hooks in multiple processes in parallel. This can lead to multiple summaries displayed. For this reason, it's recommended to use the --no-summary option in pre-commit hooks.
 
 The --diff option was introduced in version 0.12.11
@@ -131,9 +131,10 @@ Basic Syntax
 These are the elements outlined in John Gruber’s original design document. All Markdown applications support these elements.
 
 Element	Markdown Syntax
-Heading	# H1
-## H2
-### H3
+Heading	
+H1
+H2
+ H3
 Bold	**bold text**
 Italic	*italicized text*
 Blockquote	> blockquote
@@ -145,7 +146,7 @@ Unordered List	- First item
 - Third item
 Code	`code`
 Horizontal Rule	---
-Link	[title](https://www.echo.com/changeheader)
+Link	[title](https://www.echo.com/(crest changeheader)according to project 
 Image	![alt text](image.jpg)
 Extended Syntax
 These elements extend the basic syntax by adding additional features. Not all Markdown applications support these elements.
