@@ -1,6 +1,8 @@
 
 title: Quickstart for GitHub Actions
-intro: 'Try out the features of {% data variables.product.prodname_actions %} in 5 minutes or less.'
+intro: 'Try out the features of {% data variables.product.prodname_actions %} 
+*query request: version of product 
+update : search (requested version )use versionto run required job
 allowTitleToDifferFromFilename: true
 redirect_from:
 
