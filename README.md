@@ -27,62 +27,6 @@ You only need a {% data variables.product.prodname_dotcom %} repository to creat
 
 The following example shows you how {% data variables.product.prodname_actions %} jobs can be automatically triggered, where they run, and how they can interact with the code in your repository.
 
-## Creating your first workflow
-
-1. Create a `.github/workflows` directory in  your repository on {% data variables.product.prodname_dotcom %} if this directory does not already exist.
-1. In the `.github/workflows` directory, create a file named `github-actions-demo.yml`. For more information, see "[AUTOTITLE](/repositories/working-with-files/managing-files/creating-new-files)."
-1. Copy the following YAML contents into the `github-actions-demo.yml` file:
-
-   ```yaml copy
-   name: GitHub Actions Demo
-   {%- ifversion actions-run-name %}
-   run-name: {% raw %}${{ github.actor }}{% endraw %} is testing out GitHub Actions 🚀
-   {%- endif %}
-   on: [push]
-   jobs:
-     Explore-GitHub-Actions:
-       runs-on: ubuntu-latest
-       steps:
-         - run: echo "🎉 The job was automatically triggered by a {% raw %}${{ github.event_name }}{% endraw %} event."
-         - run: echo "🐧 This job is now running on a {% raw %}${{ runner.os }}{% endraw %} server hosted by GitHub!"
-         - run: echo "🔎 The name of your branch is {% raw %}${{ github.ref }}{% endraw %} and your repository is {% raw %}${{ github.repository }}{% endraw %}."
-         - name: Check out repository code
-           uses: {% data reusables.actions.action-checkout %}
-         - run: echo "💡 The {% raw %}${{ github.repository }}{% endraw %} repository has been cloned to the runner."
-         - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-         - name: List files in the repository
-           run: |
-             ls {% raw %}${{ github.workspace }}{% endraw %}
-         - run: echo "🍏 This job's status is {% raw %}${{ job.status }}{% endraw %}."
-   ```
-
-1. Scroll to the bottom of the page and select **Create a new branch for this commit and start a pull request**. Then, to create a pull request, click **Propose new file**.
-
-   ![Screenshot of the "Commit new file" area of the page.](/assets/images/help/repository/actions-quickstart-commit-new-file.png)
-
-Committing the workflow file to a branch in your repository triggers the `push` event and runs your workflow.
-
-## Viewing your workflow results
-
-{% data reusables.repositories.navigate-to-repo %}
-{% data reusables.repositories.actions-tab %}
-1. In the left sidebar, click the workflow you want to display, in this example "GitHub Actions Demo."
-
-   ![Screenshot of the "Actions" page. The name of the example workflow, "GitHub Actions Demo", is highlighted by a dark orange outline.](/assets/images/help/repository/actions-quickstart-workflow-sidebar.png)
-1. From the list of workflow runs, click the name of the run you want to see, in this example "USERNAME is testing out GitHub Actions."
-1. In the left sidebar of the workflow run page, under **Jobs**, click the **Explore-GitHub-Actions** job.
-
-   ![Screenshot of the "Workflow run" page. In the left sidebar, the "Explore-GitHub-Actions" job is highlighted with a dark orange outline.](/assets/images/help/repository/actions-quickstart-job.png)
-1. The log shows you how each of the steps was processed. Expand any of the steps to view its details.
-
-   ![Screenshot of steps run by the workflow.](/assets/images/help/repository/actions-quickstart-logs.png)
-
-   For example, you can see the list of files in your repository:
-   ![Screenshot of the "List files in the repository" step expanded to show the log output. The output for the step is highlighted with a dark orange highlight.](/assets/images/help/repository/actions-quickstart-log-detail.png)
-
-The example workflow you just added is triggered each time code is pushed to the branch, and shows you how {% data variables.product.prodname_actions %} can work with the contents of your repository. For an in-depth tutorial, see "[AUTOTITLE](/actions/learn-github-actions/understanding-github-actions)."
-
-## More starter workflows
 
 {% data reusables.actions.workflow-template-overview %}
 
@@ -90,8 +34,8 @@ The example workflow you just added is triggered each time code is pushed to the
 
 {% data reusables.actions.onboarding-next-steps %}
 
- -https://sourceryai.com
- https://www.openai.com
+ -<https://sourceryai.com>
+ <https://www.openai.com>
  
   - repo: https://github.com/sourcery-ai/sourcery
     rev: v1.6.0
@@ -101,8 +45,11 @@ The example workflow you just added is triggered each time code is pushed to the
         # * review only changed lines:
         # * omit the summary
         args: [--diff=git diff HEAD, --no-summary]
-       * task : [--removeheader-of anyrepo] suggestions [new header]
-       * replace old header with new after merging <replacing operation needs to be done manually>
+       * task : [--removeheader-of anyrepo] suggestions [new header] not GitHub header and external link required for building website 
+      
+         * old header: not found/needed
+        * new header :acess body and avoid what happened to old header in feature
+merge: merging <replacing operation needs to be done manually>
 To review all changes compared to the main branch:
 
 args: [--diff=git diff main, --no-summary]
@@ -115,38 +62,234 @@ The --diff option was introduced in version 0.12.11
 The --no-summary option was introduced in version 0.13.0
 If Sourcery is the first pre-commit hook that you've added to your project, you'll also need to run pre-commit install.
 
-Notes
-Initializing the environment for the Sourcery pre-commit hook might take some minutes.
-When the Sourcery pre-commit hook runs for the first time, you might be prompted to log in to Sourcery. Run the sourcery login command as described in the CLI docs. For further runs of the Sourcery pre-commit hook, this login step isn't necessary .
+**
+__________________
+Code Splitting ​
 
-search for issues resolver from book: auto fix Issues
+For code splitting, there are cases where Rollup splits code into chunks automatically, like dynamic loading or multiple entry points, and there is a way to explicitly tell Rollup which modules to split into separate chunks via the output.manualChunks option.
 
-Markdown Cheat Sheet
-A quick reference to the Markdown syntax.
+To use the code splitting feature to achieve the lazy dynamic loading (where some imported module(s) is only loaded after executing a function), we go back to the original example and modify src/main.js to load src/foo.js dynamically instead of statically:
 
-Overview
-This Markdown cheat sheet provides a quick overview of all the Markdown syntax elements. It can’t cover every edge case, so if you need more information about any of these elements, refer to the reference guides for basic syntax and extended syntax.
+js
+// src/main.js
+export default function () {
+	import('./foo.js').then(({ default: foo }) => console.log(foo));
+}
+Rollup will use the dynamic import to create a separate chunk that is only loaded on demand. In order for Rollup to know where to place the second chunk, instead of passing the --file option we set a folder to output to with the --dir option:
 
-Basic Syntax
-These are the elements outlined in John Gruber’s original design document. All Markdown applications support these elements.
+shell
+rollup src/main.js -f cjs -d dist
+This will create a folder dist containing two files, main.js and chunk-[hash].js, where [hash] is a content based hash string. You can supply your own naming patterns by specifying the output.chunkFileNames and output.entryFileNames options.
 
-Element	Markdown Syntax
-Heading	# H1
-## H2
-### H3
-Bold	**bold text**
-Italic	*italicized text*
-Blockquote	> blockquote
-Ordered List	1. First item
-2. Second item
-3. Third item
-Unordered List	- First item
-- Second item
-- Third item
-Code	`code`
-Horizontal Rule	---
-Link	[title](https://www.echo.com/changeheader)
-Image	![alt text](image.jpg)
+You can still run your code as before with the same output, albeit a little slower as loading and parsing of ./foo.js will only commence once we call the exported function for the first time.
+
+shell
+node -e "require('./dist/main.js')()"
+If we do not use the --dir option, Rollup will again print the chunks to stdout, adding comments to highlight the chunk boundaries:
+
+js
+//→ main.js:
+'use strict';
+
+function main() {
+	Promise.resolve(require('./chunk-b8774ea3.js')).then(({ default: foo }) =>
+		console.log(foo)
+	);
+}
+
+module.exports = main;
+
+//→ chunk-b8774ea3.js:
+('use strict');
+
+var foo = 'hello world!';
+
+exports.default = foo;
+This is useful if you want to load and parse expensive features only once they are used.
+
+A different use for code-splitting is the ability to specify several entry points that share some dependencies. Again we extend our example to add a second entry point src/main2.js that statically imports src/foo.js just like we did in the original example:
+
+js
+// src/main2.js
+import foo from './foo.js';
+export default function () {
+	console.log(foo);
+}
+If we supply both entry points to rollup, three chunks are created:
+
+shell
+rollup src/main.js src/main2.js -f cjs
+will output
+
+js
+//→ main.js:
+'use strict';
+
+function main() {
+	Promise.resolve(require('./chunk-b8774ea3.js')).then(({ default: foo }) =>
+		console.log(foo)
+	);
+}
+
+module.exports = main;
+
+//→ main2.js:
+('use strict');
+
+var foo_js = require('./chunk-b8774ea3.js');
+
+function main2() {
+	console.log(foo_js.default);
+}
+
+module.exports = main2;
+
+//→ chunk-b8774ea3.js:
+('use strict');
+
+var foo = 'hello world!';
+
+exports.default = foo;
+Notice how both entry points import the same shared chunk. Rollup will never duplicate code and instead create additional chunks to only ever load the bare minimum necessary. Again, passing the --dir option will write the files to disk.
+
+You can build the same code for the browser via native ES modules, an AMD loader or SystemJS.
+
+For example, with -f es for native modules:
+
+shell
+rollup src/main.js src/main2.js -f es -d dist
+html
+<!doctype html>
+<script type="module">
+	import main2 from './dist/main2.js';
+	main2();
+</script>
+Or alternatively, for SystemJS with -f system:
+
+shell
+rollup src/main.js src/main2.js -f system -d dist
+Install SystemJS via
+
+shell
+npm install --save-dev systemjs
+And then load either or both entry points in an HTML page as needed:
+
+html
+<!doctype html>
+<script src="node_modules/systemjs/dist/s.min.js"></script>
+<script>
+	System.import('./dist/main2.js').then(({ default: main }) => main());
+</script>
+See rollup-starter-code-splitting for an example on how to set up a web app that uses native ES modules on browsers that support them with a fallback to SystemJS if necessary.
+
+*<https://nextjs.org>can assist in setting requirements for next job or previous 
+Previous page
+Javascript API
+Next page
+ES Module Syntax
+
+ES Module Syntax
+Importing
+Named Imports
+Namespace Imports
+Default Import
+Empty Import
+Dynamic Import
+Exporting
+Named exports
+Default Export
+How bindings work
+The following is intended as a lightweight reference for the module behaviors defined in the ES2015 specification, since a proper understanding of the import and export statements are essential to the successful use of Rollup.
+
+Importing ​
+
+Imported values cannot be reassigned, though imported objects and arrays can be mutated (and the exporting module, and any other importers, will be affected by the mutation). In that way, they behave similarly to const declarations.
+
+Named Imports ​
+Import a specific item from a source module, with its original name.
+
+js
+import { something } from './module.js';
+Import a specific item from a source module, with a custom name assigned upon import.
+
+js
+import { something as somethingElse } from './module.js';
+Namespace Imports ​
+Import everything from the source module as an object which exposes all the source module's named exports as properties and methods.
+
+js
+import * as module from './module.js';
+The something example from above would then be attached to the imported object as a property, e.g. module.something. If present, the default export can be accessed via module.default.
+
+Default Import ​
+Import the default export of the source module.
+
+js
+import something from './module.js';
+Empty Import ​
+Load the module code, but don't make any new objects available.
+
+js
+import './module.js';
+This is useful for polyfills, or when the primary purpose of the imported code is to muck about with prototypes.
+
+Dynamic Import ​
+Import modules using the dynamic import API.
+
+js
+import('./modules.js').then(({ default: DefaultExport, NamedExport }) => {
+	// do something with modules.
+});
+This is useful for code-splitting applications and using modules on-the-fly.
+
+Exporting ​
+
+Named exports ​
+Export a value that has been previously declared:
+
+js
+const something = true;
+export { something };
+Rename on export:
+
+js
+export { something as somethingElse };
+Export a value immediately upon declaration:
+
+js
+// this works with `var`, `let`, `const`, `class`, and `function`
+export const something = true;
+Default Export ​
+Export a single value as the source module's default export:
+
+js
+export default something;
+This practice is only recommended if your source module only has one export.
+
+It is bad practice to mix default and named exports in the same module, though it is allowed by the specification.
+
+How bindings work ​
+
+ES modules export live bindings, not values, so values can be changed after they are initially imported as per this demo:
+
+js
+// incrementer.js
+export let count = 0;
+
+export function increment() {
+	count += 1;
+}
+js
+// main.js
+import { count, increment } from './incrementer.js';
+
+console.log(count); // 0
+increment();
+console.log(count); // 1
+
+count += 1; // Error — only incrementer.js can change this
+____________________
+mage	![alt text](image.jpg)
 Extended Syntax
 These elements extend the basic syntax by adding additional features. Not all Markdown applications support these elements.
 
@@ -156,41 +299,24 @@ Table	| Syntax | Description |
 | Header | Title |
 | Paragraph | Text |
 Fenced Code Block	```
+Notes
+Initializing the environment for the Sourcery pre-commit hook might take some minutes.
+When the Sourcery pre-commit hook runs for the first time, you might be prompted to log in to Sourcery. Run the sourcery login command as described in the CLI docs. For further runs of the Sourcery pre-commit hook, this login step isn't necessary .
+
+search for issues resolver from book: auto fix Issues
+
+(https://www.echo.com/changeheader)
+any project created assign admin field to
 {
   "firstName": "sammy",
   "lastName": "filly",
   "age": 25
 }
+mail : <buildchromium@hotmail.com
 ```
-Footnote	Here's a sentence with a footnote. [^1]
 
-[^1]: This is the footnote.
-Heading ID	### My Great Heading {#custom-id}
-Definition List	term
-: definition
-Strikethrough	~~The world is flat.~~
-Task List	- [x] Write the press release
-- [ ] Update the website
-- [ ] Contact the media
-Emoji
-(see also Copying and Pasting Emoji)	That is so funny! :joy:
-Highlight	I need to highlight these ==very important words==.
-Subscript	H~2~O
-Superscript	X^2^
-Downloads
-You can download this cheat sheet as a Markdown file for use in your Markdown application.
-
- Markdown Guide book cover
-Take your Markdown skills to the next level.
-
-Learn Markdown in 60 pages. Designed for both novices and experts, The Markdown Guide book is a comprehensive reference that has everything you need to get started and master Markdown syntax.
-
-Get the Book
-Want to learn more Markdown?
-Don't stop now! 🚀 Star the GitHub repository and then enter your email address below to receive new Markdown tutorials via email. No spam!
-
-
-Stay updated
-About     Contact     GitHub     API     Privacy Policy     Terms and Conditions
+About     Contact us :<supportbot@microsoft.com>
+ ftpsupport@blockchainexplorer.co.site
+    GitHub     API     Privacy Policy     Terms and Conditions
 
 © 2023. A Matt Cone project. CC BY-SA 4.0. Made with 🌶️ in New Mexico.
