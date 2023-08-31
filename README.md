@@ -194,3 +194,59 @@ Stay updated
 About     Contact     GitHub     API     Privacy Policy     Terms and Conditions
 
 © 2023. A Matt Cone project. CC BY-SA 4.0. Made with 🌶️ in New Mexico.
+        self.force_slider = self._extracted_from_method_two_2("Force", DEFAULT_FORCE)
+
+    # TODO Rename this here and in `method_one` and `method_two`
+    def _extracted_from_method_two_2(self, label, arg1):
+        result = Scale(self.parent, from_=1, to=10, orient=HORIZONTAL, label=label)
+        result.pack()
+        result.set(arg1)
+        result.configure(background="white")
+        return result
+Explanation:¶
+
+Do not Repeat Yourself (DRY) is an important tenet of writing clean, maintainable code. Duplicated code bloats the code base, making it harder to read and understand. It often also leads to bugs. Where changes are made in only some of the duplicated areas unintended behaviour will often arise.
+
+One of the main ways to remove duplication is to extract the common areas into another method and call that. Sourcery can detect areas of duplicate code that are in different functions in the same class and extract them. It is recommended that you then rename the extracted function and any arguments that have not been automatically named. In the above example a suitable method name would be create_slider, and arg1 would be default_value.
+
+Note that this refactoring only runs when a file is opened or saved - it does not get triggered whenever you change the code in a file.
+
+Comprehension to Generator¶
+
+Sourcery refactoring id: comprehension-to-generator¶
+
+Description:¶
+
+Replace unneeded comprehension with generator
+
+Before:¶
+
+hat_found = any([is_hat(item) for item in wardrobe])
+After:¶
+
+hat_found = any(is_hat(item) for item in wardrobe)
+Explanation:¶
+
+Functions like any, all and sum allow you to pass in a generator rather than a collection. Doing so removes a pair of brackets, making the intent slightly clearer. It will also return immediately if a hat is found, rather than having to build the whole list. This lazy evaluation can lead to performance improvements.
+
+Note that we are actually passing a generator into any() so strictly speaking the code would look like this:
+
+hat_found = any((is_hat(item) for item in wardrobe))
+but Python allows you to omit this pair of brackets.
+
+The standard library functions that accept generators are:
+
+"all", "any", "enumerate", "frozenset", "list", "max", "min", "set", "sum", "tuple"
+**for other important steps 
+extract data from below link
+<https://docs.sourcery.ai/Reference/Python/Default-Rules/comprehension-to-generator/>
+=======
+
+!DOCTYPE
+<hmtl> 
+echo : call body import from globe 
+handle returned body 
+return footer 
+return links and everything linked to <hmtl>
+>>>>>>> main
+
