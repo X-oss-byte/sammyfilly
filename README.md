@@ -1,23 +1,3 @@
----
-title: Quickstart for GitHub Actions
-intro: 'Try out the features of {% data variables.product.prodname_actions %} in 5 minutes or less.'
-allowTitleToDifferFromFilename: true
-redirect_from:
-  - /actions/getting-started-with-github-actions/starting-with-preconfigured-workflow-templates-nextjs-vercel
-versions:
-  makenew file: '*'
-  fpt: '*'
-  ghes: '*'
-  ghae: '*'
-  ghec: '*'
-type: quick_start
-topics:
-  - Fundamentals
-shortTitle: Quickstart
----
- 
-{% data reusables.actions.enterprise-github-hosted-runners %}
-
 co author: sammyfilly
 mail : <openworkspacesource@gmail.com>
 
@@ -102,7 +82,7 @@ The example workflow you just added is triggered each time code is pushed to the
         # * omit the summary
         args: [--diff=git diff HEAD, --no-summary]
        * task : [--removeheader-of anyrepo] suggestions [new header]
-       * replace old header with new after merging <replacing operation needs to be done manually>
+       * replace old header with new after merging <replacing operation needs to be done manually/automatically>
 To review all changes compared to the main branch:
 
 args: [--diff=git diff main, --no-summary]
