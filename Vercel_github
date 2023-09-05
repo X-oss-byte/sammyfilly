@@ -1,0 +1,308 @@
+VERCEL_GIT_PROVIDER
+The Git Provider the deployment is triggered from. In the case of GitHub, the value is always github.
+VERCEL_GIT_REPO_SLUG
+The origin repository of the app on GitHub. Example: my-site.
+VERCEL_GIT_REPO_OWNER
+The GitHub organization that owns the repository the deployment is triggered from. Example: acme.
+VERCEL_GIT_REPO_ID
+The ID of the GitHub repository the deployment is triggered from. Example: 117716146.
+VERCEL_GIT_COMMIT_REF
+The GitHub branch that the deployment was made from. Example: improve-about-page.
+VERCEL_GIT_COMMIT_SHA
+The GitHub SHA of the commit the deployment was triggered by. Example: fa1eade47b73733d6312d5abfad33ce9e4068081.
+VERCEL_GIT_COMMIT_MESSAGE
+The message attached to the GitHub commit the deployment was triggered by. Example: Update about page.
+VERCEL_GIT_COMMIT_AUTHOR_LOGIN
+The GitHub username belonging to the author of the commit that the project was deployed by. Example: johndoe.
+VERCEL_GIT_COMMIT_AUTHOR_NAME
+The GitHub name belonging to the author of the commit that the project was deployed by. Example: John Doe.
+VERCEL_GIT_PULL_REQUEST_ID
+The GitHub pull request id the deployment was triggered by. If a deployment is created on a branch before a pull request is made, this value will be an empty string. Example: 23.
+We require some permissions through our Vercel for GitHub integration. Below are listed the permissions required and a description for what they are used for.
+
+Repository Permissions
+Repository permissions allow us to interact with repositories belonging to or associated with (if permitted) the connected account.
+
+Permission
+Read
+Write
+Description
+Administration
+Y
+Y
+Allows us to create repositories on the user's behalf.
+Checks
+Y
+Y
+Allows us to add checks against source code on push.
+Contents
+Y
+Y
+Allows us to fetch and write source code for new project templates for the connected user or organization.
+Deployments
+Y
+Y
+Allows us to synchronize deployment status between GitHub and the Vercel infrastructure.
+Pull Requests
+Y
+Y
+Allows us create deployments for each Pull Request (PR) and comment on those PR's with status updates.
+Issues
+Y
+Y
+Allows us to interact with Pull Requests as with the Pull Requests permissions due to GitHub requiring both for access.
+Metadata
+Y
+N
+Allows us to read basic repository metadata to provide a detailed dashboard.
+Web Hooks
+Y
+Y
+Allows us to react to various GitHub events.
+Commit Statuses
+Y
+Y
+Allows us to synchronize commit status between GitHub and Vercel.
+Organization Permissions
+Organization permissions allow us to offer an enhanced experience through information about the connected organization.
+
+Permission
+Read
+Write
+Description
+Members
+Y
+N
+Allows us to offer a better team onboarding experience.
+User Permissions
+User permissions allow us to offer an enhanced experience through information about the connected user.
+
+Permission
+Read
+Write
+Description
+Email addresses
+Y
+N
+Allows us to associate an email with a GitHub account.
+We use the permissions above in order to provide you with the best possible deployment experience. If you have any questions or concerns about any of the permission scopes, please contact Vercel Support.
+To sign up on Vercel with a different GitHub account, sign out of your current GitHub account.
+
+Then, restart the Vercel signup process.
+
+Missing Git repository
+When importing or connecting a GitHub repository, we require that you have Collaborator access to the corresponding repository, so that we can configure a webhook and automatically deploy pushed commits.
+
+If a repository is missing when you try to import or connect it, make sure that you have Collaborator access configured for the repository. For an organization or a team, this page explains how to view the permissions of the members. For personal GitHub accounts, this page explains how to manage access.
+
+Silence GitHub comments
+By default, comments from the Vercel GitHub bot will appear on your pull requests and commits. You can silence these comments in your project's settings:
+
+From the Vercel dashboard, select your project
+From the Settings tab, select Git
+Under Connected Git Repository, toggle the switches to your preference
+If you had previously used the, now deprecated, github.silent property in your project configuration, we'll automatically adjust the setting for you.
+
+It is currently not possible to prevent comments for specific branches.
+Using GitHub Actions
+You can use GitHub Actions to build and deploy your Vercel Application.
+
+vercel build allows you to build your project inside GitHub Actions, without exposing your source code to Vercel. Then, vercel deploy --prebuilt skips the build step on Vercel and uploads the previously generated .vercel/output folder to Vercel from the GitHub Action.
+
+Learn more about how to configure GitHub Actions and Vercel for custom CI/CD workflows.
+
+
+
+
+table content
+<When you make a deployment, Vercel builds your project. During this time, Vercel performs a "shallow clone" on your Git repository using the command git clone --depth=10 (...) and fetches ten levels of git commit history. This means that only the latest ten commits are pulled and not the entire repository history.
+
+Vercel automatically configures the build settings for many front-end frameworks, but you can also customize the build according to your requirements.
+
+To configure your Vercel build with customized settings, choose a project from the dashboard and go to its Settings tab.
+
+The General section of the Settings tab offers the following options to customize your build settings:
+
+Build & Development Settings
+Root Directory
+Build and Development Settings
+If you'd like to override the settings or specify a different framework, you can do so from the Build & Development Settings section.
+
+
+Build and Development settings.
+
+Framework Preset
+You have a wide range of frameworks to choose from, including, Next.js, Svelte, and Nuxt.js. In several use cases, Vercel automatically detects your project's framework and sets the best settings for you.
+
+Inside the Framework Preset settings, use the drop-down menu to select the framework of your choice. This selection will be used for all deployments within your Project. The available frameworks are listed below:
+
+- Angular
+- Astro
+- Brunch
+- React
+- Docusaurus (v1)
+- Docusaurus (v2)
+- Dojo
+- Eleventy
+- Ember.js
+- Gatsby.js
+- Gridsome
+- Hexo
+- Hugo (v0.58.2)
+- Hydrogen (v1)
+- Ionic Angular
+- Ionic React
+- Jekyll
+- Middleman
+- Next.js
+- Nuxt.js
+- Parcel
+- Polymer
+- Preact
+- RedwoodJS
+- Remix
+- Saber
+- Sanity
+- Sapper
+- Scully
+- SolidStart
+- Stencil
+- Storybook
+- SvelteKit (v0)
+- SvelteKit (v1)
+- UmiJS
+- Vite
+- VitePress
+- Vue.js
+- VuePress
+- Zola (v0.13.0)
+However, if no framework is detected, "Other" will be selected. In this case, the Override toggle for the Build Command will be enabled by default so that you can enter the build command manually. The remaining deployment process is that for default frameworks.
+
+If you would like to override Framework Preset for a specific deployment, add framework to your vercel.json configuration.
+
+Build Command
+Vercel automatically configures the Build Command based on the framework. Depending on the framework, the Build Command can refer to the project’s package.json file.
+
+For example, if Next.js is your framework:
+
+Vercel checks for the build command in scripts and uses this to build the project
+If not, the next build will be triggered as the default Build Command
+If you'd like to override the Build Command for all deployments in your Project, you can turn on the Override toggle and specify the custom command.
+
+If you would like to override the Build Command for a specific deployment, add buildCommand to your vercel.json configuration.
+
+If you update the Override setting, it will be applied on your next deployment.
+Output Directory
+After building a project, most frameworks output the resulting build in a directory. Only the contents of this Output Directory will be served statically by Vercel.
+
+If Vercel detects a framework, the output directory will automatically be configured.
+
+If you update the Override setting, it will be applied on your next deployment.
+For projects that do not require building, you might want to serve the files in the root directory. In this case, do the following:
+
+Choose "Other" as the Framework Preset. This sets the output directory as public if it exists or . (root directory of the project) otherwise
+If your project doesn’t have a public directory, it will serve the files from the root directory
+Alternatively, you can turn on the Override toggle and leave the field empty (in which case, the build step will be skipped)
+If you would like to override the Output Directory for a specific deployment, add outputDirectory to your vercel.json configuration.
+
+Install Command
+During the Build Step, Vercel will automatically detect the Install Command based on the following conditions:
+
+If pnpm-lock.yaml is present, the Install Command is pnpm install
+If "lockfileVersion": '6.0' is present in the lock file, pnpm 8 is used
+If "lockfileVersion": 5.4 is present in the lock file, pnpm 7 is used
+Otherwise, pnpm 6 is used
+If package-lock.json is present, the Install Command is npm install
+If "lockfileVersion": 2 is present in the lock file, npm 8 is used
+Otherwise npm 6 is used
+Otherwise, the Install Command is yarn install
+Dependencies will be installed at the path defined in the Root Directory section.
+
+Vercel will automatically install all dependencies defined in package.json (even devDependencies, which can be excluded).
+
+If you would like to override the Install Command for all deployments, you can turn on the Override toggle and specify the command.
+
+If you would like to override the Install Command for a specific deployment, add installCommand to your vercel.json configuration.
+
+If you update the Override setting, it will be applied on your next deployment.
+Corepack
+Corepack is considered experimental and therefore, breaking changes or removal may occur in any future release of Node.js.
+Corepack is an experimental tool that allows a Node.js project to pin a specific version of a package manager.
+
+You can enable Corepack by adding an environment variable with name ENABLE_EXPERIMENTAL_COREPACK and value 1 to your Project.
+
+Then, set the 
+packageManager
+ property in the package.json file in the root of your repository. For example:
+
+package.json
+
+{
+  "packageManager": "pnpm@7.5.1"
+}
+A package.json file with pnpm version 7.5.1
+
+Custom Install Command for your API
+The Install Command defined in the Project Settings will be used for front-end frameworks that support Serverless Functions for APIs.
+
+If you're using Serverless Functions defined in the natively supported api directory, a different Install Command will be used depending on the language of the Serverless Function. You cannot customize this Install Command.
+
+Development Command
+This setting is relevant only if you’re using vercel dev locally to develop your project. Use vercel dev only if you need to use Vercel platform features like Serverless Functions. Otherwise, it's recommended to use the development command your framework provides (such as next dev for Next.js).
+
+The Development Command settings allow you to customize the behavior of vercel dev. If Vercel detects a framework, the development command will automatically be configured.
+
+If you’d like to use a custom command for vercel dev, you can turn on the Override toggle. Please note the following:
+
+If you specify a custom command, your command must pass your framework's $PORT variable (which contains the port number). For example, in Next.js you should use: next dev --port $PORT
+If the development command is not specified, vercel dev will fail. If you've selected "Other" as the framework preset, the default development command will be empty
+You must create a deployment and have your local project linked to the project on Vercel (using vercel). Otherwise, vercel dev will not work correctly
+If you would like to override the Development Command, add devCommand to your vercel.json configuration.
+
+Skip Build Step
+Some static projects do not require building. For example, a website with only HTML/CSS/JS source files can be served as-is.
+
+In such cases, you should:
+
+Specify "Other" as the framework preset
+Enable the Override option for the Build Command
+Leave the Build Command empty
+This prevents running the build, and your content is served directly.
+
+Root Directory
+In some projects, the top-level directory of the repository may not be the root directory of the app you’d like to build. For example, your repository might have a front-end directory containing a stand-alone Next.js app.
+
+For such cases, you can specify the project Root Directory. If you do so, please note the following:
+
+Your app will not be able to access files outside of that directory. You also cannot use .. to move up a level
+This setting also applies to Vercel CLI. Instead of running vercel <directory-name> to deploy, specify <directory-name> here so you can just run vercel
+Last updated on February 6, 2023
+Previous
+Git Integrations
+Next
+Vercel for GitLab
+Was this helpful?
+
+
+
+
+
+supported.
+
+Send
+© 2023
+All systems normal.
+
+Product
+
+
+Resources
+
+
+Company
+
+
+
+
+
+Vercel
