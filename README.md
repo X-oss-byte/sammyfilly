@@ -189,6 +189,157 @@ Get the Book
 Want to learn more Markdown?
 Don't stop now! 🚀 Star the GitHub repository and then enter your email address below to receive new Markdown tutorials via email. No spam!
 
+{
+#learn vercel
+VERCEL_GIT_PROVIDER
+WATCHOUT_FOR_@SAMMYFILLY(yempaccargodhl@gmail.com
+The Git Provider the deployment is triggered from. In the case of GitHub, the value is always github.
+VERCEL_GIT_REPO_SLUG
+The origin repository of the app on GitHub. Example: my-site.
+VERCEL_GIT_REPO_OWNER
+"<@sammyfilly>"
+The GitHub organization that owns the repository the deployment is triggered from. Example: acme.
+VERCEL_GIT_REPO_ID
+The ID of the GitHub repository the deployment is triggered from. Example: 117716146.
+VERCEL_GIT_COMMIT_REF
+The GitHub branch that the deployment was made from. Example: improve-about-page.
+VERCEL_GIT_COMMIT_SHA
+The GitHub SHA of the commit the deployment was triggered by. Example: fa1eade47b73733d6312d5abfad33ce9e4068081.
+VERCEL_GIT_COMMIT_MESSAGE
+The message attached to the GitHub commit the deployment was triggered by. Example: Update about page.
+VERCEL_GIT_COMMIT_AUTHOR_LOGIN
+The GitHub username belonging to the author of the commit that the project was deployed by. Example: johndoe.
+VERCEL_GIT_COMMIT_AUTHOR_NAME
+The GitHub name belonging to the author of the commit that the project was deployed by. Example: John Doe.
+VERCEL_GIT_PULL_REQUEST_ID
+The GitHub pull request id the deployment was triggered by. If a deployment is created on a branch before a pull request is made, this value will be an empty string. Example: 23.
+We require some permissions through our Vercel for GitHub integration. Below are listed the permissions required and a description for what they are used for.
+
+Repository Permissions
+Repository permissions allow us to interact with repositories belonging to or associated with (if permitted) the connected account.
+
+Permission
+Read
+Write
+Description
+Administration
+Y
+Y
+Allows us to create repositories on the user's behalf.
+Checks
+Y
+Y
+Allows us to add checks against source code on push.
+Contents
+Y
+Y
+Allows us to fetch and write source code for new project templates for the connected user or organization.
+Deployments
+Y
+Y
+Allows us to synchronize deployment status between GitHub and the Vercel infrastructure.
+Pull Requests
+Y
+Y
+Allows us create deployments for each Pull Request (PR) and comment on those PR's with status updates.
+Issues
+Y
+Y
+Allows us to interact with Pull Requests as with the Pull Requests permissions due to GitHub requiring both for access.
+Metadata
+Y
+N
+Allows us to read basic repository metadata to provide a detailed dashboard.
+Web Hooks
+Y
+Y
+Allows us to react to various GitHub events.
+Commit Statuses
+Y
+Y
+Allows us to synchronize commit status between GitHub and Vercel.
+Organization Permissions
+Organization permissions allow us to offer an enhanced experience through information about the connected organization.
+
+Permission
+Read
+Write
+Description
+Members
+Y
+N
+Allows us to offer a better team onboarding experience.
+User Permissions
+User permissions allow us to offer an enhanced experience through information about the connected user.
+
+Permission
+Read
+Write
+Description
+Email addresses⏭️
+<yempaccargodhl@gmail.com>
+<supportbot@microsoft.com>
+<openworkspacesource@gmail.com>
+Y
+N
+Allows us to associate an email with a GitHub account.
+We use the permissions above in order to provide you with the best possible deployment experience. If you have any questions or concerns about any of the permission scopes, please contact Vercel Support.
+To sign up on Vercel with a different GitHub account, sign out of your current GitHub account.
+
+Then, restart the Vercel signup process.
+
+Missing Git repository
+When importing or connecting a GitHub repository, we require that you have Collaborator access to the corresponding repository, so that we can configure a webhook and automatically deploy pushed commits.
+
+If a repository is missing when you try to import or connect it, make sure that you have Collaborator access configured for the repository. For an organization or a team, this page explains how to view the permissions of the members. For personal GitHub accounts, this page explains how to manage access.
+
+Silence GitHub comments
+By default, comments from the Vercel GitHub bot will appear on your pull requests and commits. You can silence these comments in your project's settings:
+
+From the Vercel dashboard, select your project
+From the Settings tab, select Git
+Under Connected Git Repository, toggle the switches to your preference
+If you had previously used the, now deprecated, github.silent property in your project configuration, we'll automatically adjust the setting for you.
+
+It is currently not possible to prevent comments for specific branches.
+Using GitHub Actions
+You can use GitHub Actions to build and deploy your Vercel Application.
+
+vercel build allows you to build your project inside GitHub Actions, without exposing your source code to Vercel. Then, vercel deploy --prebuilt skips the build step on Vercel and uploads the previously generated .vercel/output folder to Vercel from the GitHub Action.
+
+Learn more about how to configure GitHub Actions and Vercel for custom CI/CD workflows.
+{
+  Last updated on september 5, 2023
+  Previous
+Git Integrations
+Next
+Vercel for GitLab
+Was this helpful?
+
+
+
+
+
+supported.
+
+Send
+© 2023
+All systems normal.
+
+Product
+
+
+Resources
+
+
+Company
+
+
+
+
+
+  Vercel)
+{
 
 Stay updated
 About     Contact     GitHub     API     Privacy Policy     Terms and Conditions
