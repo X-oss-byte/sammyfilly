@@ -1,5 +1,5 @@
 ---
-title: Quickstart for GitHub Actions <push to build outside GitHub> : true
+title: Quickstart for GitHub Actions push to respiratory to build outside GitHub : true
 intro: 'Try out the features of {% data variables.product.prodname_actions %} in 5 minutes or less.'
 allowTitleToDifferFromFilename: true
 redirect_from:
